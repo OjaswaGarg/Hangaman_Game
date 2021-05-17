@@ -1,0 +1,117 @@
+pip install wordlist
+import wordlist
+generator = wordlist.Generator('charset')
+v=generator.generate(2,6)
+word_list=[]
+for each in v:
+    word_list.append(each)
+stages = ['''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ / \  |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ /    |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+  |   |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+  O   |
+      |
+      |
+      |
+=========
+''', '''
+  +---+
+  |   |
+      |
+      |
+      |
+      |
+=========
+''']    
+import random
+
+
+word=word_list[random.randint(0,len(word_list)-1)]
+
+a1={}
+
+for i in range (0,len(word)):
+    if word[i] not in a1:
+        a1[word[i]]=1
+    else:
+        a1[word[i]]=a1[word[i]]+1
+        
+i=0 
+j=0
+a3=[]
+f=0
+while(i<6 and f==0): 
+    for z in range (0,len(word)):
+        if word[z] in a3:
+            print(word[z], end = " ")
+        else:
+            print('_', end = " ")    
+    val=input("Guess your letter: ")
+    if val in a3:
+        print("Already guessed")
+        for z in range (0,len(word)):
+            if word[z] in a3:
+                print(word[z], end = " ")
+            else:
+                print('_', end = " ")  
+        val=input("Guess your letter: ")
+    else:
+        a3.append(val)
+    if val in a1:
+        print(stages[7-i-1])
+        j=j+a1[val]
+        if j==len(word):
+            print(word),
+            print("You won")
+            f=1
+    else:
+         i=i+1
+         print(stages[7-i-1])
+         print("Bad guess" + str(i))
+ 
+if f==1:
+     print("Congrats")
+else:
+     print(word)
+     print("LOSER")
+         
+            
+
